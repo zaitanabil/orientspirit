@@ -1,36 +1,46 @@
-document.querySelector('.selected-language').addEventListener('click', function() {
-    document.querySelector('.options-container').style.display = 'block';
-  });
-  
-  document.querySelectorAll('.option').forEach(option => {
-    option.addEventListener('click', function() {
-      let language = this.getAttribute('data-value');
-      let languageText = this.innerText;
-      let languageFlagSrc = this.querySelector('img').src;
-      
-      // Update the displayed selected language
-      let selectedLanguageDiv = document.querySelector('.selected-language');
-      selectedLanguageDiv.innerHTML = `<img src="${languageFlagSrc}" alt="${languageText}"> ${languageText}`;
-  
-      // Hide the options container
-      document.querySelector('.options-container').style.display = 'none';
-  
-      // Call your function to change the website language
-      setLanguage(language);
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialisation des sélecteurs de langue
+    initLanguageSelector('.S1languages .custom-select');
+    initLanguageSelector('.Slanguages .custom-select');
+
+    // Ferme le conteneur d'options lors du clic en dehors
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.custom-select')) {
+            document.querySelectorAll('.options-container').forEach(function(container) {
+                container.style.display = 'none';
+            });
+        }
     });
-  });
-  
-  // Prevent the options container from closing when clicking inside it
-  document.querySelector('.options-container').addEventListener('click', function(event) {
-    event.stopPropagation();
-  });
-  
-  // Close the options container when clicking outside of the custom select
-  document.addEventListener('click', function(event) {
-    if (!event.target.closest('.custom-select')) {
-      document.querySelector('.options-container').style.display = 'none';
-    }
-  });  
+});
+
+function initLanguageSelector(selector) {
+    const languageSelector = document.querySelector(selector);
+    const selectedLanguageDiv = languageSelector.querySelector('.selected-language');
+    const optionsContainer = languageSelector.querySelector('.options-container');
+
+    selectedLanguageDiv.addEventListener('click', function() {
+        // Affiche ou cache les options au clic
+        const isDisplayed = optionsContainer.style.display === 'block';
+        optionsContainer.style.display = isDisplayed ? 'none' : 'block';
+    });
+
+    optionsContainer.addEventListener('click', function(event) {
+        event.stopPropagation(); // Empêche l'événement de se propager au document
+    });
+
+    optionsContainer.querySelectorAll('.option').forEach(function(option) {
+        option.addEventListener('click', function() {
+            const language = this.getAttribute('data-value');
+            const languageFlagSrc = this.querySelector('img').src;
+            const languageText = this.innerText.trim();
+
+            selectedLanguageDiv.innerHTML = `<img src="${languageFlagSrc}" alt="${languageText}"> ${languageText}`;
+            optionsContainer.style.display = 'none';
+
+            setLanguage(language); // Applique la langue sélectionnée
+        });
+    });
+}
 
 const translations = {
     en: {
@@ -38,7 +48,7 @@ const translations = {
         About: "About us",
         Causes: "Our commitment",
         Contact: "Contact",
-        Donate: "Donate",
+        Donate: "Buy/Donate",
         WelcomeTitle: "Welcome to Orient Spirit Development",
         slideCaptions: [
             { title: "Heartfelt action", description: "Empower change" },
@@ -48,7 +58,7 @@ const translations = {
         featuredBlocks: [
             "Become a <strong>volunteer</strong>",
             "Explore <strong>creations</strong>",
-            "Make a <strong>donation</strong>",
+            "Buy <strong>our creations</strong> or make a <strong>donation</strong>",
             "Inspire <strong>hope</strong>"
         ],
         OurStoryTitle: "Our story",
@@ -67,24 +77,24 @@ const translations = {
             "Countless lives touched"
         ],
         CTATitle: "Empower futures. <br> Transform lives.",
-        CTADonationText: "Make a donation",
+        CTADonationText: "Buy/Donate",
         CTAVolunteerText: "Become a volunteer",
         OurCausesTitle: "Our commitment",
         CausesText: [
             {
                 title: "Time-honored crafts",
                 description: "Emphasizing sewing, carpentry, and other age-old crafts, our center enriches special needs education with the mastery of traditional skills, offering students both a connection to cultural heritage and practical avenues for self-sufficiency.",
-                buttonText: "Donate now"
+                buttonText: "Buy/Donate now"
             },
             {
                 title: "Nurturing essential life skills",
                 description: "Beyond vocational training, we focus on enriching students with vital soft skills including empathy, teamwork, and resilience. These skills are crucial for personal development, fostering a well-rounded individual capable of thriving in various aspects of life.",
-                buttonText: "Donate now"
+                buttonText: "Buy/Donate now"
             },
             {
                 title: "Green thumbs, bright futures",
                 description: "This initiative introduces sustainable gardening and farming. By participating in eco-friendly agriculture, students learn about responsibility, the importance of sustainability, and the joy of growing food that supports both the center and their communities.",
-                buttonText: "Donate now"
+                buttonText: "Buy/Donate now"
             }
         ],
         GetInTouch: "Get in touch",
@@ -103,7 +113,7 @@ const translations = {
         About: "À propos de nous",
         Causes: "Notre engagement",
         Contact: "Contact",
-        Donate: "Faire un don",
+        Donate: "Acheter/Faire un don",
         WelcomeTitle: "Bienvenue chez Orient Spirit Development",
         slideCaptions: [
             { title: "Action sincère", description: "Donner du pouvoir au changement" },
@@ -113,7 +123,7 @@ const translations = {
         featuredBlocks: [
             "Devenir un <strong>bénévole</strong>",
             "Explorer les <strong>créations</strong>",
-            "Faire un <strong>don</strong>",
+            "Achetez <strong>nos créations</strong> ou faire un <strong>don</strong>",
             "Inspirer <strong>l'espoir</strong>"
         ],
         OurStoryTitle: "Notre histoire",
@@ -132,24 +142,24 @@ const translations = {
             "D'innombrables vies touchées"
         ],
         CTATitle: "Renforcez l'avenir. <br> Transformez des vies.",
-        CTADonationText: "Faire un don",
+        CTADonationText: "Achetez/Faire un don",
         CTAVolunteerText: "Devenir bénévole",
         OurCausesTitle: "Notre engagement",
         CausesText: [
             {
                 title: "Artisanat traditionnel",
                 description: "En mettant l'accent sur la couture, la menuiserie et d'autres métiers ancestraux, notre centre enrichit l'éducation des personnes ayant des besoins spéciaux avec la maîtrise de compétences traditionnelles, offrant aux étudiants à la fois un lien avec le patrimoine culturel et des voies pratiques vers l'autosuffisance.",
-                buttonText: "Faire un don"
+                buttonText: "Achetez/Faire un don"
             },
             {
                 title: "Cultiver des compétences de vie essentielles",
                 description: "Au-delà de la formation professionnelle, nous nous concentrons sur l'enrichissement des étudiants avec des compétences douces vitales telles que l'empathie, le travail d'équipe et la résilience. Ces compétences sont cruciales pour le développement personnel, favorisant un individu complet capable de s'épanouir dans divers aspects de la vie.",
-                buttonText: "Faire un don"
+                buttonText: "Achetez/Faire un don"
             },
             {
                 title: "Des doigts verts, des futurs lumineux",
                 description: "Cette initiative introduit le jardinage et l'agriculture durables. En participant à l'agriculture respectueuse de l'environnement, les étudiants apprennent la responsabilité, l'importance de la durabilité et la joie de cultiver des aliments qui soutiennent à la fois le centre et leurs communautés.",
-                buttonText: "Faire un don"
+                buttonText: "Achetez/Faire un don"
             }
         ],
         GetInTouch: "Entrez en contact",
@@ -168,7 +178,7 @@ const translations = {
         About: "من نحن",
         Causes: "التزاماتنا",
         Contact: "تواصل معنا",
-        Donate: "تبرع",
+        Donate: "اشترِ إبداعاتنا اوتبرع",
         WelcomeTitle: "مرحباً بكم في مركز روح الشرق",
         slideCaptions: [
             { title: "عمل مخلص", description: "تمكين التغيير" },
@@ -197,24 +207,24 @@ const translations = {
             "كثير من الأشخاص في المركز تلقوا الرعاية"
         ],
         CTATitle: "تعزيز المستقبل. <br> تحويل الحياة.",
-        CTADonationText: "قم بالتبرع",
+        CTADonationText: "اشترِ إبداعاتنا او قم بالتبرع",
         CTAVolunteerText: "انضم إلينا",
         OurCausesTitle: "التزاماتنا",
         CausesText: [
             {
                 title: "الحرف التقليدية",
                 description: "من خلال التركيز على الخياطة والنجارة وغيرها من الحرف القديمة، يقوم مركزنا بإثراء تعليم الأشخاص ذوي الاحتياجات الخاصة من خلال إتقان المهارات التقليدية، مما يوفر للطلاب ارتباطًا بالتراث الثقافي ومسارات عملية لتحقيق الاكتفاء الذاتي.",
-                buttonText: "تبرع الآن"
+                buttonText: "اشترِ إبداعاتنا او تبرع الآن"
             },
             {
                 title: "تنمية المهارات الحياتية الأساسية",
                 description: "إلى جانب التدريب المهني، نحن نركز على إثراء الطلاب بالمهارات الشخصية الحيوية مثل التعاطف والعمل الجماعي والمرونة. هذه المهارات ضرورية للتنمية الشخصية، وتعزيز فرد متكامل قادر على الازدهار في مختلف جوانب الحياة.",
-                buttonText: "تبرع الآن"
+                buttonText: "اشترِ إبداعاتنا او تبرع الآن"
             },
             {
                 title: "الأصابع الخضراء، مستقبل مشرق",
                 description: "تقدم هذه المبادرة البستنة والزراعة المستدامة. ومن خلال المشاركة في الزراعة الصديقة للبيئة، يتعلم الطلاب المسؤولية وأهمية الاستدامة ومتعة زراعة الأغذية التي تدعم المركز ومجتمعاتهم.",
-                buttonText: "تبرع الآن"
+                buttonText: "اشترِ إبداعاتنا او تبرع الآن"
             }
         ],
         GetInTouch: "تواصل معنا",
@@ -227,16 +237,10 @@ const translations = {
         engagement: "التزاماتنا",
         contactinfo: "معلومات الاتصال",
         getdirection: "احصل على الاتجاه"
-    }    
+    }
 };
 
-const languageSelector = document.querySelector("#languageSelect");
-
-languageSelector.addEventListener("change", (event) => {
-    setLanguage(event.target.value);
-});
-
-const setLanguage = (language) => {
+function setLanguage(language) {
     // Update navigation links
     document.querySelectorAll(".nav-link").forEach(link => {
         const id = link.id;
@@ -282,7 +286,7 @@ const setLanguage = (language) => {
     const ourImpactSection = document.getElementById('ourImpactSection');
     const ourImpactTitleElement = ourImpactSection.querySelector("h5.mb-3");
     ourImpactTitleElement.innerText = translations[language].OurImpactTitle;
-    
+
     const ourImpactList = ourImpactSection.querySelectorAll(".custom-list-item");
     ourImpactList.forEach((item, index) => {
         // Ensure there's a corresponding translation
@@ -294,7 +298,7 @@ const setLanguage = (language) => {
     // Update CTA section
     const ctaTitleElement = document.querySelector("#cta h2");
     ctaTitleElement.innerHTML = translations[language].CTATitle;
-    
+
     const ctaDonationLink = document.querySelector("#cta a:nth-of-type(1)"); // First link in CTA section
     ctaDonationLink.innerText = translations[language].CTADonationText;
 
@@ -325,9 +329,16 @@ const setLanguage = (language) => {
     document.getElementById("engagement").innerText = translations[language].engagement;
     document.getElementById("contactinfo").innerText = translations[language].contactinfo;
     document.getElementById("getdirection").innerText = translations[language].getdirection;
-};
+}
 
-// Optionally, set a default language on page load
-window.addEventListener("DOMContentLoaded", () => {
-    setLanguage(languageSelector.value);
+// Initialiser la langue par défaut ou celle choisie par l'utilisateur précédemment
+const userPreferredLanguage = localStorage.getItem('selectedLanguage') || 'en';
+setLanguage(userPreferredLanguage);
+
+// Ajouter un gestionnaire d'événements pour le sélecteur de langue
+document.querySelectorAll('.option').forEach(option => {
+    option.addEventListener('click', function() {
+        const selectedLanguage = this.getAttribute('data-value');
+        setLanguage(selectedLanguage);
+    });
 });
