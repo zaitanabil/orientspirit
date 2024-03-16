@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   var container = document.getElementById('imageContainer');
-  var numberOfImages = 25; // Ajustez ce nombre selon le nombre d'images
+  var numberOfImages = 31; // Ajustez ce nombre selon le nombre d'images
 
   for (var i = 1; i <= numberOfImages; i++) {
       var imgDiv = document.createElement('div');
