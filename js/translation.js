@@ -123,7 +123,7 @@ const translations = {
         featuredBlocks: [
             "Devenir un <strong>bénévole</strong>",
             "Explorer les <strong>créations</strong>",
-            "Achetez <strong>nos créations</strong> ou faire un <strong>don</strong>",
+            "Acheter <strong>nos créations</strong> ou faire un <strong>don</strong>",
             "Inspirer <strong>l'espoir</strong>"
         ],
         OurStoryTitle: "Notre histoire",
@@ -142,24 +142,24 @@ const translations = {
             "D'innombrables vies touchées"
         ],
         CTATitle: "Renforcez l'avenir. <br> Transformez des vies.",
-        CTADonationText: "Achetez/Faire un don",
+        CTADonationText: "Acheter/Faire un don",
         CTAVolunteerText: "Devenir bénévole",
         OurCausesTitle: "Notre engagement",
         CausesText: [
             {
                 title: "Artisanat traditionnel",
                 description: "En mettant l'accent sur la couture, la menuiserie et d'autres métiers ancestraux, notre centre enrichit l'éducation des personnes ayant des besoins spéciaux avec la maîtrise de compétences traditionnelles, offrant aux étudiants à la fois un lien avec le patrimoine culturel et des voies pratiques vers l'autosuffisance.",
-                buttonText: "Achetez/Faire un don"
+                buttonText: "Acheter/Faire un don"
             },
             {
                 title: "Cultiver des compétences de vie essentielles",
                 description: "Au-delà de la formation professionnelle, nous nous concentrons sur l'enrichissement des étudiants avec des compétences douces vitales telles que l'empathie, le travail d'équipe et la résilience. Ces compétences sont cruciales pour le développement personnel, favorisant un individu complet capable de s'épanouir dans divers aspects de la vie.",
-                buttonText: "Achetez/Faire un don"
+                buttonText: "Acheter/Faire un don"
             },
             {
                 title: "Des doigts verts, des futurs lumineux",
                 description: "Cette initiative introduit le jardinage et l'agriculture durables. En participant à l'agriculture respectueuse de l'environnement, les étudiants apprennent la responsabilité, l'importance de la durabilité et la joie de cultiver des aliments qui soutiennent à la fois le centre et leurs communautés.",
-                buttonText: "Achetez/Faire un don"
+                buttonText: "Acheter/Faire un don"
             }
         ],
         GetInTouch: "Entrez en contact",
